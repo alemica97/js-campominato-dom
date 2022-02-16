@@ -48,9 +48,31 @@ function clickBackground(num){
             // console.log('prova');
             prova.style.backgroundColor = '#6495ED';
             prova.style.transition = '500ms';
-        })
+            console.log(prova);
+        });
+        
     }
 }
+
+function bombGenerator(num){
+
+    const bombArray = [];
+    let randomBomb;
+
+    do{
+        randomBomb = Math.floor(Math.random() * (num - 1) + 1);
+        if( !bombArray.includes( randomBomb )){
+            bombArray.push(randomBomb);
+        }
+    }while( bombArray.length < 16 );
+
+    console.log(bombArray);
+    return bombArray;
+}
+
+let arrayProva = [];
+
+
 
 let level, squares;
 
@@ -66,9 +88,9 @@ playButton.addEventListener('click', function(){
         case 'easy':
             console.log('hai scelto easy');
             squares = squaresNumber(10,10);
-            
             squaresGenerator(squares);
             clickBackground(squareElement);
+            arrayProva = bombGenerator(49);
             break;
         case 'medium':
             console.log('hai scelto medium');
@@ -84,7 +106,4 @@ playButton.addEventListener('click', function(){
             break;
     }
 
-})
-
-
-
+});
