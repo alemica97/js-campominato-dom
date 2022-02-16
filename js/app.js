@@ -13,7 +13,6 @@ console.log(instruction);
 //Salvo i div con classe square creati a riga 23 in una variabile
 const squareElement = document.getElementsByClassName('square');
 console.log(squareElement);
-
 //faccio una funzione che dato un numero ritorna un array con n DIV ed n Numeri
 function squaresGenerator(num){
 
@@ -40,18 +39,21 @@ function squaresNumber(nRows, nCols){
 }
 //funzione che invocata, al click colora lo sfondo dei div class="square" di blu
 function clickBackground(num){
-    
+
+    let clickIndex;
+
     for(let i = 0; i < num.length; i++){
         let prova;
         prova = num[i];
         prova.addEventListener('click', function(){
-            // console.log('prova');
             prova.style.backgroundColor = '#6495ED';
             prova.style.transition = '500ms';
-            console.log(prova);
-        });
-        
+            clickIndex = prova.innerHTML;
+            console.log(clickIndex);
+        });  
     }
+
+    return clickIndex;
 }
 
 function bombGenerator(num){
@@ -71,8 +73,7 @@ function bombGenerator(num){
 }
 
 let arrayProva = [];
-
-
+let squareIndex = [];
 
 let level, squares;
 
@@ -83,6 +84,7 @@ playButton.addEventListener('click', function(){
     gridWrapper.innerHTML = ''; //tramite questo resetto il contenuto di grid-wrapper, così non si accumula
     
     level = difficultyLevel.value;
+    
     // console.log(level);
     switch(level){
         case 'easy':
@@ -90,7 +92,8 @@ playButton.addEventListener('click', function(){
             squares = squaresNumber(10,10);
             squaresGenerator(squares);
             clickBackground(squareElement);
-            arrayProva = bombGenerator(49);
+            arrayProva = bombGenerator(squares);
+            console.log(arrayProva);
             break;
         case 'medium':
             console.log('hai scelto medium');
