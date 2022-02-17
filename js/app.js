@@ -16,10 +16,9 @@ console.log(squareElement);
 //faccio una funzione che dato un numero ritorna un array con n DIV ed n Numeri
 function squaresGenerator(num){
 
-    let square;
     const root = Math.sqrt(num);
     for(let i = 1; i <= num; i++){
-        square = document.createElement('div');
+        const square = document.createElement('div');
         square.classList.add('square');
         gridWrapper.append(square);
         square.innerHTML += i;
@@ -28,9 +27,8 @@ function squaresGenerator(num){
         all'aumentare di righe e colonne*/
         square.style.width = `calc( 100% / ${root})`;
         square.style.height = `calc( 100% / ${root})`;
+        square.addEventListener("click", checkBomb);
     }
-    
-    // return square;
 }
 //funzione che dati come parametri righe e colonne, restituisce il numero di quadrati
 function squaresNumber(nRows, nCols){
@@ -38,23 +36,23 @@ function squaresNumber(nRows, nCols){
     return squaresNumber;
 }
 //funzione che invocata, al click colora lo sfondo dei div class="square" di blu
-function clickBackground(num){
+// function clickBackground(num){
 
-    let clickIndex;
+//     let clickIndex;
 
-    for(let i = 0; i < num.length; i++){
-        let prova;
-        prova = num[i];
-        prova.addEventListener('click', function(){
-            prova.style.backgroundColor = '#6495ED';
-            prova.style.transition = '500ms';
-            clickIndex = prova.innerHTML;
-            console.log(clickIndex);
-        });  
-    }
+//     for(let i = 0; i < num.length; i++){
+//         let prova;
+//         prova = num[i];
+//         prova.addEventListener('click', function(){
+//             prova.style.backgroundColor = '#6495ED';
+//             prova.style.transition = '500ms';
+//             clickIndex = prova.innerHTML;
+//             console.log(clickIndex);
+//         });  
+//     }
 
-    return clickIndex;
-}
+//     return clickIndex;
+// }
 
 function bombGenerator(num){
 
@@ -62,20 +60,31 @@ function bombGenerator(num){
     let randomBomb;
 
     do{
-        randomBomb = Math.floor(Math.random() * (num - 1) + 1);
+        randomBomb = Math.floor(Math.random() * (num) + 1);
         if( !bombArray.includes( randomBomb )){
             bombArray.push(randomBomb);
         }
     }while( bombArray.length < 16 );
-
-    console.log(bombArray);
     return bombArray;
 }
 
-let arrayProva = [];
-let squareIndex = [];
+function checkBomb() {
+    const check = parseInt(this.innerHTML);
+    console.log(check);
+    console.log(bombs.includes(check));
+    console.log(bombs);
+    if(bombs.includes(check)){
+        console.log(check);
+        this.classList.add("bomb");
+    } else {
+        this.classList.add("not-bomb");
+        console.log(this.innerHTML);
+    }
+    this.removeEventListener('click', checkBomb);
+}
 
-let level, squares;
+let squareIndex = [];
+let level, squares, bombs;
 
 playButton.addEventListener('click', function(){
 
@@ -91,9 +100,8 @@ playButton.addEventListener('click', function(){
             console.log('hai scelto easy');
             squares = squaresNumber(10,10);
             squaresGenerator(squares);
-            clickBackground(squareElement);
-            arrayProva = bombGenerator(squares);
-            console.log(arrayProva);
+            bombs = bombGenerator(squares);
+            console.log(bombs);
             break;
         case 'medium':
             console.log('hai scelto medium');
