@@ -115,6 +115,18 @@ main .grid-wrapper.active{
     transition: all 300ms;
 }
 
-.red{
+.bomb{
     background-color: red;
+}
+
+.not-bomb{
+    background-color: #6495ED;
+}
+function checkBomb(){
+    if( bombs.includes(this.innerHTML)){
+        this.classList.add('bomb');
+    }else{
+        this.classList.add('not-bomb');
+    }
+    this.removeEventListener('click', checkBomb);
 }
