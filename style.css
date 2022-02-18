@@ -21,6 +21,8 @@ header{
     justify-content: space-around;
     align-items: center;
     padding: 20px 0;
+    z-index: 999;
+    box-shadow: 0px 5px 30px black;
 }
 
 .logo{
@@ -48,10 +50,6 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-footer{
-    height: 40px;
 }
 
 .instruction.active{
@@ -97,6 +95,11 @@ main .grid-wrapper.active{
     display: flex;
     flex-wrap: wrap;
     user-select: none;
+    position: relative;
+    background-color: #fff2e2;
+    border: 2px solid black;
+    padding: 15px;
+    border-radius: 10px;
 }
 
 .grid-wrapper .square{
@@ -108,6 +111,24 @@ main .grid-wrapper.active{
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
+}
+.score{
+    display: none;
+}
+
+.score.active{
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    background-color: rgba(255, 235, 211, 1);
+    border-radius: 10px;
+    padding: 50px 30px;
+    display: block;
+    z-index: 10;
+    border: 2px solid black;
+    box-shadow: 10px 25px 35px black;
 }
 
 .square:hover{
@@ -122,11 +143,16 @@ main .grid-wrapper.active{
 .not-bomb{
     background-color: #6495ED;
 }
-function checkBomb(){
-    if( bombs.includes(this.innerHTML)){
-        this.classList.add('bomb');
-    }else{
-        this.classList.add('not-bomb');
-    }
-    this.removeEventListener('click', checkBomb);
+
+footer{
+    height: 60px;
+    box-shadow: 0px -5px 30px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mio-nome{
+    color: #6495ED;
+    text-decoration: underline;
 }
