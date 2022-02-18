@@ -69,16 +69,25 @@ function bombGenerator(num){
 }
 
 function checkBomb() {
+
+    let totSquares = document.getElementsByClassName('square');
+    // console.log(totSquares);
     const check = parseInt(this.innerHTML);
-    console.log(check);
-    console.log(bombs.includes(check));
-    console.log(bombs);
     if(bombs.includes(check)){
-        console.log(check);
         this.classList.add("bomb");
+        for(let i = 0; i < totSquares.length; i++){
+            totSquares[i].removeEventListener('click', checkBomb);
+            // console.log(totSquares[i].innerHTML);
+            const nSquare = parseInt(totSquares[i].innerHTML);
+            // console.log(nSquare);
+            if(bombs.includes(nSquare)){
+                totSquares[i].classList.add('bomb');
+            }
+
+        }
+        
     } else {
         this.classList.add("not-bomb");
-        console.log(this.innerHTML);
     }
     this.removeEventListener('click', checkBomb);
 }
@@ -86,15 +95,13 @@ function checkBomb() {
 let squareIndex = [];
 let level, squares, bombs;
 
-playButton.addEventListener('click', function(){
-
+function startGame(){
     instruction.classList.add('active');
     gridWrapper.classList.add('active');
     gridWrapper.innerHTML = ''; //tramite questo resetto il contenuto di grid-wrapper, così non si accumula
     
     level = difficultyLevel.value;
     
-    // console.log(level);
     switch(level){
         case 'easy':
             console.log('hai scelto easy');
@@ -107,14 +114,17 @@ playButton.addEventListener('click', function(){
             console.log('hai scelto medium');
             squares = squaresNumber(9,9);
             squaresGenerator(squares);
-            clickBackground(squareElement);
+            bombs = bombGenerator(squares);
+            console.log(bombs);
             break;
         case 'difficult':
             console.log('hai scelto difficult');
             squares = squaresNumber(7,7);
             squaresGenerator(squares);
-            clickBackground(squareElement);
+            bombs = bombGenerator(squares);
+            console.log(bombs);
             break;
     }
+}
 
-});
+playButton.addEventListener('click', startGame);
